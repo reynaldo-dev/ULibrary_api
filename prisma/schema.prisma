@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model book {
+  id_book   Int      @id @default(autoincrement())
+  title     String   @db.VarChar(100)
+  author    String   @db.VarChar(100)
+  published DateTime @db.Date
+  id_genre  Int
+  genre     genre    @relation(fields: [id_genre], references: [id_genre], onDelete: NoAction, onUpdate: NoAction, map: "fk_genre")
+}
+
+model genre {
+  id_genre Int     @id @default(autoincrement())
+  genre    String? @db.VarChar(20)
+  book     book[]
+}
+
+model role {
+  id_role Int     @id @default(autoincrement())
+  role    String? @db.VarChar(20)
+  users   users[]
+}
+
+model users {
+  id_user    Int    @id @default(autoincrement())
+  first_name String @db.VarChar(100)
+  last_name  String @db.VarChar(100)
+  email      String @db.VarChar(100)
+  id_role    Int
+  role       role   @relation(fields: [id_role], references: [id_role], onDelete: NoAction, onUpdate: NoAction, map: "fk_role")
+}

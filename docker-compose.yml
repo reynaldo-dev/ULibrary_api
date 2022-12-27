@@ -1,0 +1,21 @@
+version: '3.7' 
+
+services:
+    db:
+      image: postgres:12
+      container_name: db
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: password
+        POSTGRES_USER: user
+        POSTGRES_DB: ulib
+      ports:
+      - '5432:5432'
+     
+    admin:
+      image: adminer
+      container_name: admin
+      restart: always
+      ports:
+        - 8080:8080
+      
