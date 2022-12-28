@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { PostUserDto } from './dto/PostUser-dto';
+import { v4 as uuidv4 } from 'uuid';
 
 export class UserService {
   private prisma: PrismaClient;
@@ -19,7 +20,10 @@ export class UserService {
   async createUser(user: PostUserDto) {
     try {
       const postUser = await this.prisma.users.create({
-        data: user,
+        data: {
+          ...user,
+          uuid: uuidv4(),
+        },
         include: {
           role: true,
         },

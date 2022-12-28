@@ -2,7 +2,7 @@
   "name": "ulibrary_api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"nodemon dist/main.js\" \"tsc -w\"",
@@ -45,6 +45,7 @@
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
   }
 }
