@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postUser = void 0;
-const class_validator_1 = require("class-validator");
 const PostUser_dto_1 = require("./dto/PostUser-dto");
 const statusCodes_1 = require("../statusCodes");
 const user_service_1 = require("./user.service");
+const validate_schema_1 = require("../helpers/validate-schema");
 const postUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userService = new user_service_1.UserService();
     const user = new PostUser_dto_1.PostUserDto();
@@ -22,19 +22,24 @@ const postUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     user.last_name = last_name;
     user.email = email;
     user.id_role = id_role;
-    (0, class_validator_1.validate)(user).then(errors => {
-        if (errors.length > 0) {
-            return res.status(statusCodes_1.StatusCode.BAD_REQUEST).json({ ok: false, errors });
-        }
-        else {
-            userService.createUser(user).then(userCreated => {
-                return userCreated
-                    ? res.status(statusCodes_1.StatusCode.OK).json({ ok: true, user: userCreated })
-                    : res
-                        .status(statusCodes_1.StatusCode.BAD_REQUEST)
-                        .json({ ok: false, message: 'User already exists or there is some error!' });
-            });
-        }
+    const isValidationError = yield (0, validate_schema_1.validateSchema)(user);
+    if (isValidationError) {
+        return res.status(statusCodes_1.StatusCode.BAD_REQUEST).json({
+            ok: false,
+            message: 'Validation error',
+        });
+    }
+    const newUser = yield userService.createUser(user);
+    if (!newUser) {
+        return res.status(statusCodes_1.StatusCode.INTERNAL_SERVER_ERROR).json({
+            ok: false,
+            message: 'User already exists or there is some error',
+        });
+    }
+    return res.status(statusCodes_1.StatusCode.CREATED).json({
+        ok: true,
+        message: 'User created!',
+        user: newUser,
     });
 });
 exports.postUser = postUser;
