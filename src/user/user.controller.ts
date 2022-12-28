@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { validate, validateOrReject } from 'class-validator';
 import { PostUserDto } from './dto/PostUser-dto';
 import { StatusCode } from '../statusCodes';
 import { UserService } from './user.service';
@@ -18,7 +17,7 @@ export const postUser = async (req: Request, res: Response) => {
   if (isValidationError) {
     return res.status(StatusCode.BAD_REQUEST).json({
       ok: false,
-      message: 'Validation error  ',
+      message: 'Validation error',
     });
   }
 

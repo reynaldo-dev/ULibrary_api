@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { PostUserDto } from './dto/PostUser-dto';
 import { v4 as uuidv4 } from 'uuid';
+import { LoginDto } from '../auth/dto/login-dto';
 
 export class UserService {
   private prisma: PrismaClient;
@@ -30,6 +31,24 @@ export class UserService {
       });
 
       return postUser;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async findToLogin(loginDto: LoginDto) {
+    try {
+      const user = await this.prisma.users.findFirst({
+        where: {
+          email: loginDto.email,
+          first_name: loginDto.first_name,
+          last_name: loginDto.last_name,
+        },
+        include: {
+          role: true,
+        },
+      });
+      return user;
     } catch (error) {
       return null;
     }
