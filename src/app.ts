@@ -5,6 +5,8 @@ import morgan from 'morgan';
 //routes
 import userRoutes from './user/user.routes';
 import authRoutes from './auth/auth.routes';
+import bookRoutes from './book/book.routes';
+
 import { Path } from './paths';
 
 export class App {
@@ -24,6 +26,7 @@ export class App {
   public setupRoutes(): void {
     this.app.use(Path.Users, userRoutes);
     this.app.use(Path.Login, authRoutes);
+    this.app.use(Path.Books, bookRoutes);
   }
 
   public setupMiddlewares(): void {

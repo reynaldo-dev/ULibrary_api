@@ -4,11 +4,11 @@ import { LoginDto } from './dto/login-dto';
 import { validateSchema } from '../helpers/validate-schema';
 import { StatusCode } from '../statusCodes';
 
+const authService = new AuthService();
+const loginDto = new LoginDto();
+
 export const login = async (req: Request, res: Response) => {
   const { email, first_name, last_name } = req.body;
-
-  const authService = new AuthService();
-  const loginDto = new LoginDto();
   loginDto.email = email;
   loginDto.first_name = first_name;
   loginDto.last_name = last_name;

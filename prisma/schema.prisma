@@ -9,10 +9,12 @@ datasource db {
 
 model book {
   id_book   Int      @id @default(autoincrement())
-  title     String   @db.VarChar(100)
+  title     String   @unique(map: "book_unique") @db.VarChar(100)
   author    String   @db.VarChar(100)
   published DateTime @db.Date
   id_genre  Int
+  uuid      String?  @db.VarChar(200)
+  stock     Int?
   genre     genre    @relation(fields: [id_genre], references: [id_genre], onDelete: NoAction, onUpdate: NoAction, map: "fk_genre")
 }
 
