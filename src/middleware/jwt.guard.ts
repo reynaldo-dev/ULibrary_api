@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { StatusCode } from '../statusCodes';
+import { StatusCode } from '../app/statusCodes';
 import jwt from 'jsonwebtoken';
 
 export const jwtGuard = async (req: Request, res: Response, next: NextFunction) => {

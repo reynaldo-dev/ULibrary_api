@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { PostUserDto } from './dto/PostUser-dto';
-import { StatusCode } from '../statusCodes';
+import { StatusCode } from '../app/statusCodes';
 import { UserService } from './user.service';
 import { validateSchema } from '../helpers/validate-schema';
 

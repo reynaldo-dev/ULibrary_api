@@ -3,4 +3,5 @@ export const Path = {
   Users: '/users',
   Login: '/auth/login',
   Books: '/books',
+  Borrows: '/borrows',
 };

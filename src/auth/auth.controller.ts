@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login-dto';
 import { validateSchema } from '../helpers/validate-schema';
-import { StatusCode } from '../statusCodes';
+import { StatusCode } from '../app/statusCodes';
 
 const authService = new AuthService();
 const loginDto = new LoginDto();

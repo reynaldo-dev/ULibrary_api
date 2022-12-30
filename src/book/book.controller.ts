@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { BookService } from './book.service';
-import { StatusCode } from '../statusCodes';
+import { StatusCode } from '../app/statusCodes';
 import { BookDto } from './dto/createBookDto';
 import { validateSchema } from '../helpers/validate-schema';
 

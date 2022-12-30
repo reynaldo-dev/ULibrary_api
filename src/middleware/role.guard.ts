@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Roles } from '../roles';
+import { Roles } from '../app/roles';
 
 export const roleGuard = async (req: Request, res: Response, next: NextFunction) => {
   const { user } = req;

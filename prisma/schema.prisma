@@ -16,6 +16,7 @@ model book {
   uuid      String?  @db.VarChar(200)
   stock     Int?
   genre     genre    @relation(fields: [id_genre], references: [id_genre], onDelete: NoAction, onUpdate: NoAction, map: "fk_genre")
+  borrow    borrow[]
 }
 
 model genre {
@@ -31,11 +32,23 @@ model role {
 }
 
 model users {
-  id_user    Int     @id @default(autoincrement())
-  first_name String  @db.VarChar(100)
-  last_name  String  @db.VarChar(100)
-  email      String  @unique(map: "unique_constraint") @db.VarChar(100)
+  id_user    Int      @id @default(autoincrement())
+  first_name String   @db.VarChar(100)
+  last_name  String   @db.VarChar(100)
+  email      String   @unique(map: "unique_constraint") @db.VarChar(100)
   id_role    Int
-  uuid       String? @db.VarChar(200)
-  role       role    @relation(fields: [id_role], references: [id_role], onDelete: NoAction, onUpdate: NoAction, map: "fk_role")
+  uuid       String?  @db.VarChar(200)
+  borrow     borrow[]
+  role       role     @relation(fields: [id_role], references: [id_role], onDelete: NoAction, onUpdate: NoAction, map: "fk_role")
+}
+
+model borrow {
+  id_borrow Int       @id @default(autoincrement())
+  id_user   Int?
+  id_book   Int?
+  from_date DateTime? @db.Date
+  to_date   DateTime? @db.Date
+  state     String?   @db.VarChar(30)
+  book      book?     @relation(fields: [id_book], references: [id_book], onDelete: NoAction, onUpdate: NoAction, map: "fk_book")
+  users     users?    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
 }
