@@ -32,16 +32,34 @@ export class BorrowService {
     }
   }
 
+  async verifyAvailableBooks(id_book: number) {
+    try {
+      const book = await this.prisma.book.findUnique({
+        where: {
+          id_book: id_book,
+        },
+      });
+      return book.stock > 0;
+    } catch (error) {
+      return null;
+    }
+  }
+
   async createBorrow(borrowDto: BorrowDto[]) {
     try {
-      borrowDto.forEach(borrow => {
+      let available = true;
+      borrowDto.forEach(async borrow => {
         borrow.from_date = new Date(borrow.from_date);
         borrow.to_date = new Date(borrow.to_date);
-      });
 
-      return await this.prisma.borrow.createMany({
-        data: borrowDto,
+        const isAvailable = await this.verifyAvailableBooks(borrow.id_book);
+        if (!isAvailable) {
+          available = false;
+          return;
+        }
       });
+      console.log('available', available);
+      return available;
     } catch (error) {
       return null;
     }

@@ -26,3 +26,12 @@ export const login = async (req: Request, res: Response) => {
     ? res.status(StatusCode.BAD_REQUEST).json({ ok: false, message: 'Login error' })
     : res.status(StatusCode.OK).json({ ok: true, login });
 };
+
+export const whoami = async (req: Request, res: Response) => {
+  const token = req.headers.authorization.split(' ')[1];
+  console.log(token);
+  const user = await authService.whoami(token);
+  return !user
+    ? res.status(StatusCode.BAD_REQUEST).json({ ok: false, message: 'Whoami error' })
+    : res.status(StatusCode.OK).json({ ok: true, user });
+};

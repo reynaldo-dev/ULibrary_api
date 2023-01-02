@@ -27,4 +27,13 @@ export class AuthService {
       return null;
     }
   }
+
+  async whoami(token: string) {
+    try {
+      const user = jwt.verify(token, process.env.JWT_SECRET);
+      return user;
+    } catch (error) {
+      return null;
+    }
+  }
 }

@@ -7,6 +7,7 @@ import userRoutes from '../user/user.routes';
 import authRoutes from '../auth/auth.routes';
 import bookRoutes from '../book/book.routes';
 import borrowRoutes from '../borrow/borrow.routes';
+import genreRoutes from '../genres/genre.routes';
 
 import { Path } from './paths';
 
@@ -26,9 +27,10 @@ export class App {
 
   public setupRoutes(): void {
     this.app.use(Path.Users, userRoutes);
-    this.app.use(Path.Login, authRoutes);
+    this.app.use(Path.Auth, authRoutes);
     this.app.use(Path.Books, bookRoutes);
     this.app.use(Path.Borrows, borrowRoutes);
+    this.app.use(Path.Genres, genreRoutes);
   }
 
   public setupMiddlewares(): void {

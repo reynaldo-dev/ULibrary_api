@@ -1,9 +1,11 @@
 import { Router } from 'express';
+
+import { login, whoami } from './auth.controller';
 import { Path } from '../app/paths';
-import { login } from './auth.controller';
 
 const router = Router();
 
-router.post('/', login);
+router.post(Path.Login, login);
+router.get(Path.Whoami, whoami);
 
 export default router;

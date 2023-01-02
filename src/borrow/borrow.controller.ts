@@ -19,9 +19,12 @@ export const postBorrow = async (req: Request, res: Response) => {
   const borrows: BorrowDto[] = req.body;
 
   const newBorrow = await borrowService.createBorrow(borrows);
+  console.log('response', newBorrow);
   return newBorrow
     ? res.status(StatusCode.CREATED).json({ ok: true, borrow: newBorrow })
-    : res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ ok: false, message: 'Error creating borrow' });
+    : res
+        .status(StatusCode.INTERNAL_SERVER_ERROR)
+        .json({ ok: false, message: 'Error making the borrow or one of the books is not available' });
 };
 
 export const putBorrow = async (req: Request, res: Response) => {
