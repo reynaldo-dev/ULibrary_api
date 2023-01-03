@@ -8,14 +8,32 @@ export class UserService {
   constructor() {
     this.prisma = new PrismaClient();
   }
-  async findOne(email: string) {
-    const user = this.prisma.users.findFirst({
-      where: {
-        email,
-      },
-    });
+  async getUsers(first_name: string) {
+    try {
+      if (first_name == undefined || first_name == null || first_name == '') {
+        return await this.prisma.users.findMany({
+          include: {
+            borrow: true,
+            role: true,
+          },
+        });
+      }
 
-    return user;
+      return await this.prisma.users.findMany({
+        where: {
+          first_name: {
+            contains: first_name,
+            mode: 'insensitive',
+          },
+        },
+        include: {
+          borrow: true,
+          role: true,
+        },
+      });
+    } catch (error) {
+      return null;
+    }
   }
 
   async createUser(user: PostUserDto) {

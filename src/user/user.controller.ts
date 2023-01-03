@@ -4,8 +4,8 @@ import { StatusCode } from '../app/statusCodes';
 import { UserService } from './user.service';
 import { validateSchema } from '../helpers/validate-schema';
 
+const userService = new UserService();
 export const postUser = async (req: Request, res: Response) => {
-  const userService = new UserService();
   const user = new PostUserDto();
   const { first_name, last_name, email, id_role } = req.body;
   user.first_name = first_name;
@@ -34,4 +34,12 @@ export const postUser = async (req: Request, res: Response) => {
     message: 'User created!',
     user: newUser,
   });
+};
+
+export const getUsers = async (req: Request, res: Response) => {
+  const { first_name } = req.query;
+  const users = await userService.getUsers(first_name as string);
+  return users
+    ? res.status(StatusCode.OK).json({ ok: true, users })
+    : res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ ok: false, message: 'Error getting users' });
 };

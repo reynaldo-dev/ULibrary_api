@@ -28,8 +28,8 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const whoami = async (req: Request, res: Response) => {
-  const token = req.headers.authorization.split(' ')[1];
-  console.log(token);
+  const token = req.headers?.authorization.split(' ')[1] || '';
+
   const user = await authService.whoami(token);
   return !user
     ? res.status(StatusCode.BAD_REQUEST).json({ ok: false, message: 'Whoami error' })
