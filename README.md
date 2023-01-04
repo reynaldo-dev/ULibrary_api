@@ -61,10 +61,10 @@ This is not deployed yet.
  }
  
  body:{
- 	"email":"john.doe@ulibrary.com",
-	"first_name":"John",
-	"last_name":"Doe"
-	"id_rol" : 2
+ "email":"john.doe@ulibrary.com",
+ "first_name":"John",
+ "last_name":"Doe"
+ "id_rol" : 2
  }
  
  ```
