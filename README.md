@@ -129,9 +129,9 @@ This is not deployed yet.
 
   - PUT /borrows : Update borrow state 
  ```
- Active when a student request a borrow
- To return when the make a return borrow request
- Returned when the librarian confirm the return of that borrow  
+ "Active" when a student request a borrow
+ "To return" when the make a return borrow request
+ "Returned" when the librarian confirm the return of that borrow  
 
  headers:{
   Authorization : Bearer {token}
