@@ -138,7 +138,7 @@ This is not deployed yet.
  }
 
  body:{
-    "state":"Active" 1 "To return" | "Returned",
+    "state":"Active" | "To return" | "Returned",
 	"id_borrow":17
  }
  ```
