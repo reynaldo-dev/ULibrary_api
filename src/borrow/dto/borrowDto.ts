@@ -12,11 +12,9 @@ export class BorrowDto {
   id_book: number;
 
   @IsString()
-  @IsNotEmpty()
   from_date: Date;
 
   @IsString()
-  @IsNotEmpty()
   to_date: Date;
 
   @IsString()
