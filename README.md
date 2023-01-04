@@ -40,9 +40,9 @@ This is not deployed yet.
  - POST /auth/login : Login with credentials
  ```
  body:{
-	"email":"john.doe@ulibrary.com",
-	"first_name":"John",
-	"last_name":"Doe"
+"email":"john.doe@ulibrary.com",
+"first_name":"John",
+"last_name":"Doe"
 }
  ```
  
