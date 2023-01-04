@@ -35,3 +35,20 @@ This is not deployed yet.
  docker-compose up
  
  ```
+ 
+ ### Endpoints
+ - POST /auth/login : Login with credentials
+ ```
+ body:{
+	"email":"john.doe@ulibrary.com",
+	"first_name":"John",
+	"last_name":"Doe"
+}
+ ```
+  - GET /auth/whoami : Refresh token and autolog 
+ ```
+ headers:{
+  Authorization : Bearer {token}
+ }
+ 
+ ```
