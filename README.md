@@ -53,6 +53,14 @@ This is not deployed yet.
  }
  
  ```
+
+   - GET /users?first_name={first_name} : Get user by firstname
+ ```
+ headers:{
+  Authorization : Bearer {token}
+ }
+ 
+ ```
  
   - POST /users : To create a new user
  ```
@@ -68,3 +76,72 @@ This is not deployed yet.
  }
  
  ```
+
+
+  - GET /books?query={title, author or genre} : Filter book
+ ```
+ headers:{
+  Authorization : Bearer {token}
+ }
+ 
+ ```
+
+  - POST /books : To create a new book
+ ```
+ headers:{
+  Authorization : Bearer {token}
+ }
+ 
+ body:{
+"title":"Javascript for seniors",
+"author":"Mike Bhole",
+"published":"09/11/2022",
+"id_genre":8,
+"stock":25
+ }
+ 
+ ```
+
+   - GET /borrows?student={email or first_name} : Filter borrow by student
+ ```
+ headers:{
+  Authorization : Bearer {token}
+ }
+ ```
+
+  - POST /borrow : To create a new borrow
+ ```
+ headers:{
+  Authorization : Bearer {token}
+ }
+ 
+ body:{
+"id_user":42,
+"id_book":86,
+"id_borrow":123,
+"from_date":"2022/12/12",
+"to_date":"2022/12/12",
+"state":"Active"
+ }
+ 
+ ```
+
+
+  - PUT /borrows : Update borrow state 
+ ```
+ Active when a student request a borrow
+ To return when the make a return borrow request
+ Returned when the librarian confirm the return of that borrow  
+
+ headers:{
+  Authorization : Bearer {token}
+ }
+
+ body:{
+    "state":"Active" 1 "To return" | "Returned",
+	"id_borrow":17
+ }
+ ```
+ 
+
+
