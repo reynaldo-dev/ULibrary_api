@@ -45,10 +45,27 @@ This is not deployed yet.
 	"last_name":"Doe"
 }
  ```
+ 
   - GET /auth/whoami : Refresh token and autolog 
  ```
  headers:{
   Authorization : Bearer {token}
+ }
+ 
+ ```
+ 
+  - POST /users : To create a new user
+ ```
+ headers:{
+  Authorization : Bearer {token}
+ }
+ 
+ body:{
+ first_name:{
+ 	"email":"john.doe@ulibrary.com",
+	"first_name":"John",
+	"last_name":"Doe"
+	"id_rol" : 2
  }
  
  ```
