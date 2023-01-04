@@ -61,7 +61,6 @@ This is not deployed yet.
  }
  
  body:{
- first_name:{
  	"email":"john.doe@ulibrary.com",
 	"first_name":"John",
 	"last_name":"Doe"
