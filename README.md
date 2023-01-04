@@ -11,6 +11,7 @@ This is not deployed yet.
 - PrismaORM
 - Typescript
 - Docker  
+- Postgres
   
     
  ### Modules  
