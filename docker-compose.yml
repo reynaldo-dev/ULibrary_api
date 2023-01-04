@@ -1,32 +1,31 @@
-version: '3.7' 
+version: '3.7'
 
 services:
-    db:
-      image: postgres:12
-      container_name: db
-      restart: always
-      environment:
-        POSTGRES_PASSWORD: password
-        POSTGRES_USER: user
-        POSTGRES_DB: ulib
-      ports:
+  db:
+    image: postgres:12
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: ulib
+    ports:
       - '5432:5432'
-     
-    admin:
-      image: adminer
-      container_name: admin
-      restart: always
-      ports:
-        - 8080:8080
-    app:
-      image: ulibrary-api
-      container_name: app
-      depends_on:
-        - db
-      environment:
-        PORT: 4000
-        JWT_SECRET: #u!V6V%qJk5%^7UKaIvevrq(*xwcY%U8+
-        DATABASE_URL: postgresql://user:password@db:5432/ulib?schema=public
-      ports:
-        - '4000:4000'
-      
+
+  admin:
+    image: adminer
+    container_name: admin
+    restart: always
+    ports:
+      - 8080:8080
+  # app:
+  #   image: ulibrary-api
+  #   container_name: app
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     PORT: 4000
+  #     JWT_SECRET: #u!V6V%qJk5%^7UKaIvevrq(*xwcY%U8+
+  #     DATABASE_URL: postgresql://user:password@db:5432/ulib?schema=public
+  #   ports:
+  #     - '4000:4000'
