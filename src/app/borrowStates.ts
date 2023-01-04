@@ -1,5 +1,5 @@
 export enum BorrowStates {
-  ACTIVE = 'active',
-  RETURNED = 'returned',
-  TO_RETURN = 'to return',
+  ACTIVE = 'Active',
+  RETURNED = 'Returned',
+  TO_RETURN = 'To return',
 }

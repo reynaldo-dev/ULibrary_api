@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { BorrowDto } from './dto/borrowDto';
 import { UpdateBorrowDto } from './dto/updateBorrowDto';
+import { BorrowStates } from '../app/borrowStates';
 
 export class BorrowService {
   private prisma: PrismaClient;
@@ -20,7 +21,25 @@ export class BorrowService {
       }
       return await this.prisma.borrow.findMany({
         where: {
-          id_user: +student,
+          OR: [
+            {
+              users: {
+                email: {
+                  contains: student,
+                  mode: 'insensitive',
+                },
+              },
+            },
+
+            {
+              users: {
+                first_name: {
+                  contains: student,
+                  mode: 'insensitive',
+                },
+              },
+            },
+          ],
         },
         include: {
           book: true,
@@ -32,34 +51,19 @@ export class BorrowService {
     }
   }
 
-  async verifyAvailableBooks(id_book: number) {
+  async createBorrow(borrowDto: BorrowDto) {
     try {
-      const book = await this.prisma.book.findUnique({
-        where: {
-          id_book: id_book,
-        },
+      borrowDto.from_date = new Date();
+      borrowDto.to_date = new Date();
+      const newBorrow = await this.prisma.borrow.create({
+        data: borrowDto,
       });
-      return book.stock > 0;
-    } catch (error) {
-      return null;
-    }
-  }
 
-  async createBorrow(borrowDto: BorrowDto[]) {
-    try {
-      let available = true;
-      borrowDto.forEach(async borrow => {
-        borrow.from_date = new Date(borrow.from_date);
-        borrow.to_date = new Date(borrow.to_date);
+      if (newBorrow) {
+        this.decrementStock(newBorrow.id_book);
+      }
 
-        const isAvailable = await this.verifyAvailableBooks(borrow.id_book);
-        if (!isAvailable) {
-          available = false;
-          return;
-        }
-      });
-      console.log('available', available);
-      return available;
+      return newBorrow ? newBorrow : null;
     } catch (error) {
       return null;
     }
@@ -67,12 +71,52 @@ export class BorrowService {
 
   async updateBorrow(updateBorrowDto: UpdateBorrowDto) {
     try {
-      return await this.prisma.borrow.update({
+      const updatedBorrow = await this.prisma.borrow.update({
         where: {
           id_borrow: updateBorrowDto.id_borrow,
         },
         data: {
           state: updateBorrowDto.state,
+        },
+      });
+
+      if (updateBorrowDto.state == BorrowStates.RETURNED) {
+        this.incrementStock(updatedBorrow.id_book);
+      }
+
+      return updatedBorrow ? updatedBorrow : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async incrementStock(id_book: number) {
+    try {
+      await this.prisma.book.update({
+        where: {
+          id_book: id_book,
+        },
+        data: {
+          stock: {
+            increment: 1,
+          },
+        },
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async decrementStock(id_book: number) {
+    try {
+      await this.prisma.book.update({
+        where: {
+          id_book: id_book,
+        },
+        data: {
+          stock: {
+            decrement: 1,
+          },
         },
       });
     } catch (error) {

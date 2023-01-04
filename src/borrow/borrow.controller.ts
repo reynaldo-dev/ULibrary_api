@@ -16,10 +16,23 @@ export const getBorrows = async (req: Request, res: Response) => {
 };
 
 export const postBorrow = async (req: Request, res: Response) => {
-  const borrows: BorrowDto[] = req.body;
+  const borrowDto = new BorrowDto();
+  const { id_user, id_book, from_date, to_date, state } = req.body;
+  borrowDto.id_user = id_user;
+  borrowDto.id_book = id_book;
+  borrowDto.from_date = from_date;
+  borrowDto.to_date = to_date;
+  borrowDto.state = state;
 
-  const newBorrow = await borrowService.createBorrow(borrows);
-  console.log('response', newBorrow);
+  const isValidationError = await validateSchema(borrowDto);
+  if (isValidationError) {
+    return res.status(StatusCode.BAD_REQUEST).json({
+      ok: false,
+      message: 'Validation error',
+    });
+  }
+
+  const newBorrow = await borrowService.createBorrow(borrowDto);
   return newBorrow
     ? res.status(StatusCode.CREATED).json({ ok: true, borrow: newBorrow })
     : res
