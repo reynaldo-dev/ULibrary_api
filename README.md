@@ -37,6 +37,8 @@ This is not deployed yet.
  ```
  
  ### Endpoints
+ BaseUrl: https://ulibrary-api.onrender.com
+
  - POST /auth/login : Login with credentials
  ```
  body:{
