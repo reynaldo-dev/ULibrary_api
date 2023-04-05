@@ -1,6 +1,5 @@
 # ULibrary_api
 Focus fullstack technical test (ULibrary) 
-This is not deployed yet.  
 
 ### Tech Stack  
 - Node js 
