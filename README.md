@@ -43,7 +43,7 @@ Focus fullstack technical test (ULibrary)
  ```
  
  ### Endpoints
- BaseUrl: https://ulibrary-api.onrender.com
+ BaseUrl on production: https://ulib-api.onrender.com
 
  - POST /auth/login : Login with credentials
  ```
@@ -154,8 +154,6 @@ Focus fullstack technical test (ULibrary)
  ## Credentials for login
  There is already one student and one librarian
  
- ## Production link
- https://ulib-api.onrender.com
 
  ```
  librarian : {
