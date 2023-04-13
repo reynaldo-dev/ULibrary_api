@@ -13,10 +13,9 @@ export class BookDto {
   @IsNotEmpty()
   published: Date;
 
-  @IsNumber()
-  @IsPositive()
+  @IsString()
   @IsNotEmpty()
-  id_genre: number;
+  genreId: string;
 
   @IsNumber()
   @IsPositive()

@@ -39,22 +39,18 @@ export class UserService {
   async createUser(user: PostUserDto) {
     try {
       const postUser = await this.prisma.users.create({
-        data: {
-          ...user,
-          uuid: uuidv4(),
-        },
+        data: user,
         include: {
           role: true,
         },
       });
-
       return postUser;
     } catch (error) {
       return null;
     }
   }
 
-  async findToLogin(loginDto: LoginDto) {
+  async findOne(loginDto: LoginDto) {
     try {
       const user = await this.prisma.users.findFirst({
         where: {
@@ -68,6 +64,7 @@ export class UserService {
       });
       return user;
     } catch (error) {
+      console.log(error);
       return null;
     }
   }

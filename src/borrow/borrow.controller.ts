@@ -17,9 +17,9 @@ export const getBorrows = async (req: Request, res: Response) => {
 
 export const postBorrow = async (req: Request, res: Response) => {
   const borrowDto = new BorrowDto();
-  const { id_user, id_book, from_date, to_date, state } = req.body;
-  borrowDto.id_user = id_user;
-  borrowDto.id_book = id_book;
+  const { userId, bookId, from_date, to_date, state } = req.body;
+  borrowDto.userId = userId;
+  borrowDto.bookId = bookId;
   borrowDto.from_date = from_date;
   borrowDto.to_date = to_date;
   borrowDto.state = state;

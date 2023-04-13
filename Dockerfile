@@ -30,6 +30,6 @@ COPY --from=builder /app/dist ./dist
 RUN npm install
 EXPOSE ${PORT}
 
-CMD ["node", "dist/app/main.js"]
+CMD ["node", "dist/main.js"]
 
 

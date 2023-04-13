@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { BookDto } from './dto/createBookDto';
-import { v4 as uuidv4 } from 'uuid';
 
 export class BookService {
   private prisma: PrismaClient;
@@ -18,39 +17,41 @@ export class BookService {
           },
         });
       }
-
-      return await this.prisma.book.findMany({
-        where: {
-          OR: [
-            {
-              title: {
-                contains: query,
-                mode: 'insensitive',
-              },
-            },
-            {
-              genre: {
-                genre: {
-                  contains: query,
-                  mode: 'insensitive',
-                },
-              },
-            },
-            {
-              author: {
-                contains: query,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
-        include: {
-          genre: true,
-        },
-      });
+      return await this.getByQuery(query);
     } catch (error) {
       return null;
     }
+  }
+  async getByQuery(query: string) {
+    return await this.prisma.book.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            genre: {
+              genre: {
+                contains: query,
+                mode: 'insensitive',
+              },
+            },
+          },
+          {
+            author: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+      include: {
+        genre: true,
+      },
+    });
   }
 
   async createBook(book: BookDto) {
@@ -58,7 +59,6 @@ export class BookService {
       const newBook = await this.prisma.book.create({
         data: {
           ...book,
-          uuid: uuidv4(),
           published: new Date(book.published),
         },
         include: {

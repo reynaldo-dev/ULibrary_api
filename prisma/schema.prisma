@@ -3,52 +3,50 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model book {
-  id_book   Int      @id @default(autoincrement())
-  title     String   @unique(map: "book_unique") @db.VarChar(100)
-  author    String   @db.VarChar(100)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String   @unique(map: "book_unique") @db.String
+  author    String   @db.String
   published DateTime @db.Date
-  id_genre  Int
-  uuid      String?  @db.VarChar(200)
+  genreId   String   @db.ObjectId
   stock     Int?
-  genre     genre    @relation(fields: [id_genre], references: [id_genre], onDelete: NoAction, onUpdate: NoAction, map: "fk_genre")
+  genre     genre    @relation(fields: [genreId], references: [id])
   borrow    borrow[]
 }
 
 model genre {
-  id_genre Int     @id @default(autoincrement())
-  genre    String? @db.VarChar(20)
-  book     book[]
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  genre String? @db.String
+  book  book[]
 }
 
 model role {
-  id_role Int     @id @default(autoincrement())
-  role    String? @db.VarChar(20)
-  users   users[]
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  role  String? @db.String
+  users users[]
 }
 
 model users {
-  id_user    Int      @id @default(autoincrement())
-  first_name String   @db.VarChar(100)
-  last_name  String   @db.VarChar(100)
-  email      String   @unique(map: "unique_constraint") @db.VarChar(100)
-  id_role    Int
-  uuid       String?  @db.VarChar(200)
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  first_name String   @db.String
+  last_name  String   @db.String
+  email      String   @unique(map: "unique_constraint") @db.String
+  roleId     String   @db.ObjectId
   borrow     borrow[]
-  role       role     @relation(fields: [id_role], references: [id_role], onDelete: NoAction, onUpdate: NoAction, map: "fk_role")
+  role       role     @relation(fields: [roleId], references: [id])
 }
 
 model borrow {
-  id_borrow Int       @id @default(autoincrement())
-  id_user   Int?
-  id_book   Int?
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String?   @db.ObjectId
+  bookId    String?   @db.ObjectId
   from_date DateTime? @db.Date
   to_date   DateTime? @db.Date
-  state     String?   @db.VarChar(30)
-  book      book?     @relation(fields: [id_book], references: [id_book], onDelete: NoAction, onUpdate: NoAction, map: "fk_book")
-  users     users?    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
+  state     String?   @db.String
+  book      book?     @relation(fields: [bookId], references: [id])
+  users     users?    @relation(fields: [userId], references: [id])
 }

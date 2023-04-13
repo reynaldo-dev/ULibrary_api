@@ -13,10 +13,8 @@ export class AuthService {
 
   async login(loginDto: LoginDto) {
     try {
-      const user = await this.userService.findToLogin(loginDto);
-      if (!user) {
-        return null;
-      }
+      const user = await this.userService.findOne(loginDto);
+      if (!user) return null;
 
       const token = jwt.sign({ ...user }, process.env.JWT_SECRET, { expiresIn: '1d' });
       return {

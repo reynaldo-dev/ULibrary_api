@@ -14,6 +14,7 @@ export const login = async (req: Request, res: Response) => {
   loginDto.last_name = last_name;
 
   const isValidationError = await validateSchema(loginDto);
+
   if (isValidationError) {
     return res.status(StatusCode.BAD_REQUEST).json({
       ok: false,

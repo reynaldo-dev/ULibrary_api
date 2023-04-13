@@ -5,8 +5,7 @@ export class UpdateBorrowDto {
   @IsNotEmpty()
   state: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  id_borrow: number;
+  id: string;
 }

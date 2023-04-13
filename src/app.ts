@@ -3,13 +3,13 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 //routes
-import userRoutes from '../user/user.routes';
-import authRoutes from '../auth/auth.routes';
-import bookRoutes from '../book/book.routes';
-import borrowRoutes from '../borrow/borrow.routes';
-import genreRoutes from '../genres/genre.routes';
+import userRoutes from './user/user.routes';
+import authRoutes from './auth/auth.routes';
+import bookRoutes from './book/book.routes';
+import borrowRoutes from './borrow/borrow.routes';
+import genreRoutes from './genres/genre.routes';
 
-import { Path } from './paths';
+import { Path } from './app/paths';
 
 export class App {
   private app: Application;

@@ -1,15 +1,13 @@
 import { IsNumber, IsNotEmpty, IsString, IsPositive } from 'class-validator';
 
 export class BorrowDto {
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  id_user: number;
+  userId: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  id_book: number;
+  bookId: string;
 
   @IsString()
   from_date: Date;

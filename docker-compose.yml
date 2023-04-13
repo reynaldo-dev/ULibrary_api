@@ -1,23 +1,24 @@
 version: '3.7'
 
 services:
-  db:
-    image: postgres:12
-    container_name: db
+
+## mongo db connection with replicSet
+  mongo:
+    image: mongo
+    container_name: mongo
     restart: always
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: user
-      POSTGRES_DB: ulib
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: ulib
     ports:
-      - '5432:5432'
+      - '27017:27017'
+    volumes:
+      - ./data/db:/data/db
+    command: mongod --replSet rs0 --bind_ip_all 
 
-  admin:
-    image: adminer
-    container_name: admin
-    restart: always
-    ports:
-      - 8080:8080
+    
+
   # app:
   #   image: ulibrary-api
   #   container_name: app

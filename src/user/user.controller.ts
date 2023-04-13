@@ -7,11 +7,11 @@ import { validateSchema } from '../helpers/validate-schema';
 const userService = new UserService();
 export const postUser = async (req: Request, res: Response) => {
   const user = new PostUserDto();
-  const { first_name, last_name, email, id_role } = req.body;
+  const { first_name, last_name, email, roleId } = req.body;
   user.first_name = first_name;
   user.last_name = last_name;
   user.email = email;
-  user.id_role = id_role;
+  user.roleId = roleId;
 
   const isValidationError = await validateSchema(user);
   if (isValidationError) {

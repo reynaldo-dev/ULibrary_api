@@ -16,11 +16,11 @@ export const getBooks = async (req: Request, res: Response) => {
 
 export const postBook = async (req: Request, res: Response) => {
   const bookDto = new BookDto();
-  const { title, author, published, id_genre, stock } = req.body;
+  const { title, author, published, genreId, stock } = req.body;
   bookDto.title = title;
   bookDto.author = author;
   bookDto.published = published;
-  bookDto.id_genre = id_genre;
+  bookDto.genreId = genreId;
   bookDto.stock = stock;
 
   const isValidationError = await validateSchema(bookDto);
