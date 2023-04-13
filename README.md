@@ -10,7 +10,7 @@ Focus fullstack technical test (ULibrary)
 - PrismaORM
 - Typescript
 - Docker  
-- Postgres
+- MongoDB - MongoAtlas
   
     
  ### Modules  
@@ -22,11 +22,18 @@ Focus fullstack technical test (ULibrary)
    
 
 ### Instalation
+ Create an ```.env``` file and copy this inside
+ - PORT=4000
+ - JWT_SECRET=secret
+ - DATABASE_URL= "mongodb+srv://user:password@clusterOrHost/databse?retryWrites=true&w=majority&authSource=admin"
+
  
  ```
  shell
  
  npm install  
+ npx prisma generate
+ npx prisma db push
  npm run dev  
  
  or with docker  
@@ -73,7 +80,7 @@ Focus fullstack technical test (ULibrary)
  "email":"john.doe@ulibrary.com",
  "first_name":"John",
  "last_name":"Doe"
- "id_rol" : 2
+ "roleId" : ObjectId()
  }
  
  ```
@@ -97,7 +104,7 @@ Focus fullstack technical test (ULibrary)
 "title":"Javascript for seniors",
 "author":"Mike Bhole",
 "published":"09/11/2022",
-"id_genre":8,
+"genreId":ObjectId(),
 "stock":25
  }
  
@@ -117,9 +124,9 @@ Focus fullstack technical test (ULibrary)
  }
  
  body:{
-"id_user":42,
-"id_book":86,
-"id_borrow":123,
+"userId":ObjectId(),
+"bookId":ObjectId(),
+"boorowId":ObjectId(),
 "from_date":"2022/12/12",
 "to_date":"2022/12/12",
 "state":"Active"
@@ -140,7 +147,7 @@ Focus fullstack technical test (ULibrary)
 
  body:{
     "state":"Active" | "To return" | "Returned",
-	"id_borrow":17
+	"id":ObjectId()
  }
  ```
  

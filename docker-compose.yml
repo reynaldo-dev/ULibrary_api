@@ -19,14 +19,16 @@ services:
 
     
 
-  # app:
-  #   image: ulibrary-api
-  #   container_name: app
-  #   depends_on:
-  #     - db
-  #   environment:
-  #     PORT: 4000
-  #     JWT_SECRET: #u!V6V%qJk5%^7UKaIvevrq(*xwcY%U8+
-  #     DATABASE_URL: postgresql://user:password@db:5432/ulib?schema=public
-  #   ports:
-  #     - '4000:4000'
+  app:
+    image: ulibrary-api
+    container_name: app
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    environment:
+      PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - '4000:4000'
