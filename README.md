@@ -150,6 +150,24 @@ Focus fullstack technical test (ULibrary)
 	"id":ObjectId()
  }
  ```
+
+ ## Credentials for login
+ There is already one student and one librarian
+
+ ```
+ librarian : {
+  email      : johndoe.ulib@ulib.com
+  first_name : John
+  last_nme   : Doe
+ }
+
+
+ student : {
+  email      : josemoran.ulib@ulib.com
+  first_name : Jose
+  last_name  : Moran
+ }
+ ```
  
 
 
